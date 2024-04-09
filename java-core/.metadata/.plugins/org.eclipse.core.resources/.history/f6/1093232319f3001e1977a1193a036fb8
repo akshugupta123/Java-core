@@ -1,0 +1,85 @@
+package com.learning.core.day2session1afternoon;
+
+//Custom exception class for negative amount
+class NegativeAmountException extends Exception {
+ public NegativeAmountException(String message) {
+     super(message);
+ }
+}
+
+//Custom exception class for low balance
+class LowBalanceException extends Exception {
+ public LowBalanceException(String message) {
+     super(message);
+ }
+}
+
+//BankAccount class
+class BankAccount {
+ private int accNo;
+ private String custName;
+ private String accType;
+ private float balance;
+
+ // Constructor
+ public BankAccount(int accNo, String custName, String accType, float initialBalance) throws LowBalanceException, NegativeAmountException {
+     this.accNo = accNo;
+     this.custName = custName;
+     this.accType = accType;
+
+     // Check if initial balance is negative
+     if (initialBalance < 0) {
+         throw new NegativeAmountException("NegativeAmount");
+     }
+
+     // Check if initial balance is below minimum required balance
+     if ((accType.equals("Saving") && initialBalance < 1000) || (accType.equals("Current") && initialBalance < 5000)) {
+         throw new LowBalanceException("LowBalance");
+     }
+
+     this.balance = initialBalance;
+ }
+
+ // Method to deposit amount
+ public void deposit(float amt) throws NegativeAmountException {
+     // Check if amount to deposit is negative
+     if (amt < 0) {
+         throw new NegativeAmountException("NegativeAmount");
+     }
+     balance += amt;
+ }
+
+ // Method to get current balance
+ public float getBalance() throws LowBalanceException {
+     // Check if current balance is below minimum required balance
+     if ((accType.equals("Saving") && balance < 1000) || (accType.equals("Current") && balance < 5000)) {
+         throw new LowBalanceException("LowBalance");
+     }
+     return balance;
+ }
+}
+
+public class Main {
+ public static void main(String[] args) {
+     try {
+         // Test case 1
+         BankAccount acc1 = new BankAccount(123, "John", "Saving", 900);
+         acc1.getBalance(); // Throws LowBalanceException
+
+     } catch (LowBalanceException e) {
+         System.out.println("Output 1: " + e.getMessage());
+     } catch (NegativeAmountException e) {
+         System.out.println("Output 1: " + e.getMessage());
+     }
+
+     try {
+         // Test case 2
+         BankAccount acc2 = new BankAccount(123, "John", "Saving", -900); // Throws NegativeAmountException
+     } catch (LowBalanceException e) {
+         System.out.println("Output 2: " + e.getMessage());
+     } catch (NegativeAmountException e) {
+         System.out.println("Output 2: " + e.getMessage());
+     }
+ }
+}
+

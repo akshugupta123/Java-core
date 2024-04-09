@@ -1,0 +1,34 @@
+package com.learning.core.day2session1morning;
+
+
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Set;
+
+public class D02P058 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Input:");
+        String input = scanner.nextLine();
+        scanner.close();
+
+        if (canSplitIntoFourDistinctStrings(input)) {
+            System.out.println("Output:\nYes");
+        } else {
+            System.out.println("Output:\nNo");
+        }
+    }
+
+    private static boolean canSplitIntoFourDistinctStrings(String input) {
+        if (input.length() < 4) {
+            return false;
+        }
+
+        Set<Character> charSet = new HashSet<>();
+        for (char c : input.toCharArray()) {
+            charSet.add(c);
+        }
+
+        return charSet.size() == input.length();
+    }
+}

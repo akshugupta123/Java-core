@@ -1,0 +1,73 @@
+package com.learning.core.day2session1afternoon;
+
+
+//Custom exception class for negative amount
+class NegativeAmountException extends Exception {
+ public NegativeAmountException(String message) {
+     super(message);
+ }
+}
+
+//Custom exception class for low balance
+class LowBalanceException extends Exception {
+ public LowBalanceException(String message) {
+     super(message);
+ }
+}
+
+//BankAccount class
+class BankAccount {
+ private int accNo;
+ private String custName;
+ private String accType;
+ private float balance;
+
+ // Constructor
+ public BankAccount(int accNo, String custName, String accType, float balance) throws LowBalanceException {
+     this.accNo = accNo;
+     this.custName = custName;
+     this.accType = accType;
+     this.balance = balance;
+
+     // Check balance conditions
+     if ((accType.equals("Saving") && balance < 1000) || (accType.equals("Current") && balance < 5000)) {
+         throw new LowBalanceException("LowBalance");
+     } else if (balance < 0) {
+         throw new NegativeAmountException("NegativeAmount");
+     }
+ }
+
+ // Method to deposit amount
+ public void deposit(float amt) throws NegativeAmountException {
+     if (amt < 0) {
+         throw new NegativeAmountException("NegativeAmount");
+     }
+     balance += amt;
+ }
+
+ // Method to get current balance
+ public float getBalance() throws LowBalanceException {
+     if ((accType.equals("Saving") && balance < 1000) || (accType.equals("Current") && balance < 5000)) {
+         throw new LowBalanceException("LowBalance");
+     }
+     return balance;
+ }
+}
+
+//Main class
+public class Main {
+ public static void main(String[] args) {
+     try {
+         // Test cases
+         BankAccount acc1 = new BankAccount(123, "John", "Saving", 900);
+         acc1.deposit(200); // Deposit 200 into account 1
+         System.out.println("Balance after deposit: " + acc1.getBalance());
+
+         BankAccount acc2 = new BankAccount(123, "John", "Saving", -900); // Test negative balance
+     } catch (LowBalanceException e) {
+         System.out.println("Output: " + e.getMessage());
+     } catch (NegativeAmountException e) {
+         System.out.println("Output: " + e.getMessage());
+     }
+ }
+}

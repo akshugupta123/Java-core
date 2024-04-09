@@ -1,0 +1,21 @@
+package com.learning.core.day2session1afternoon;
+
+//Main class
+public class Main {
+public static void main(String[] args) {
+   // Example usage of the BankAccount class
+   try {
+       BankAccount account1 = new BankAccount(123, "John", "Savings", 1500);
+       System.out.println("Account balance: " + account1.getBalance());
+       account1.deposit(500);
+       System.out.println("Account balance after deposit: " + account1.getBalance());
+
+       BankAccount account2 = new BankAccount(456, "Alice", "Current", 4000);
+       System.out.println("Account balance: " + account2.getBalance());
+       account2.deposit(-200); // Attempt to deposit a negative amount
+   } catch (LowBalanceException e) {
+       System.out.println("Low Balance Exception: " + e.getMessage());
+   } catch (NegativeAmountException e) {
+       System.out.println("Negative Amount Exception: " + e.getMessage());
+   }
+}

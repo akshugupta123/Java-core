@@ -1,0 +1,33 @@
+package com.learning.core.day2session1morning;
+
+public class D02P054 {
+	public static void main(String[] args) {
+        String input = "aebcbda";
+        System.out.println("Minimum deletions to make \"" + input + "\" palindrome: " + minDeletions(input));
+    }
+
+    private static int minDeletions(String s) {
+        // Count the number of characters to delete to make the string palindrome
+        int deletions = 0;
+        int i = 0, j = s.length() - 1;
+        
+        while (i < j) {
+            if (s.charAt(i) != s.charAt(j)) {
+                // If characters don't match, delete one of them
+                deletions++;
+                if (s.charAt(i + 1) == s.charAt(j)) {
+                    // Move pointer forward if the next character matches
+                    i++;
+                } else if (s.charAt(i) == s.charAt(j - 1)) {
+                    // Move pointer backward if the previous character matches
+                    j--;
+                }
+            }
+            i++;
+            j--;
+        }
+        
+        return deletions;
+    }
+
+}

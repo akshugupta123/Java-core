@@ -1,0 +1,19 @@
+package com.learning.core.day2session1afternoon;
+
+public class D02P062 {
+    public static void main(String[] args) {
+        // Creating CricketRating objects with two critics
+        CricketRating player1 = new CricketRating("John", 8.5f, 7.0f);
+        CricketRating player2 = new CricketRating("Alice", 6.0f, 6.5f);
+
+        // Creating CricketRating objects with three critics
+        CricketRating player3 = new CricketRating("Bob", 9.0f, 8.5f, 8.0f);
+        CricketRating player4 = new CricketRating("Carol", 5.0f, 4.0f, 3.5f);
+
+        // Displaying information about the players
+        player1.display();
+        player2.display();
+        player3.display();
+        player4.display();
+    }
+}

@@ -1,0 +1,19 @@
+package com.learning.core.day2session1afternoon;
+
+public class Main {
+    public static void main(String[] args) {
+        try {
+            D02P061 account1 = new D02P061(123, "John", "Saving", 900);
+            System.out.println("Output 1: Low Balance");
+        } catch (LowBalanceException | NegativeAmountException e) {
+            System.out.println("Output 1: " + e.getMessage());
+        }
+
+        try {
+            D02P061 account2 = new D02P061(123, "John", "Saving", -900);
+            System.out.println("Output 2: ");
+        } catch (LowBalanceException | NegativeAmountException e) {
+            System.out.println("Output 2: " + e.getMessage());
+        }
+    }
+}

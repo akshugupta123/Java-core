@@ -1,0 +1,66 @@
+package com.learning.core.day2session1afternoon;
+
+
+//Importing required exceptions
+import java.util.Scanner;
+
+//Custom exception class for negative amount
+class NegativeAmountException extends Exception {
+ public NegativeAmountException(String message) {
+     super(message);
+ }
+}
+
+//Custom exception class for low balance
+class LowBalanceException extends Exception {
+ public LowBalanceException(String message) {
+     super(message);
+ }
+}
+
+//BankAccount class
+class BankAccount {
+ private int accNo;
+ private String custName;
+ private String accType;
+ private float balance;
+
+ // Constructor
+ public BankAccount(int accNo, String custName, String accType, float initialBalance) throws LowBalanceException, NegativeAmountException {
+     this.accNo = accNo;
+     this.custName = custName;
+     this.accType = accType;
+
+     // Check if initial balance is negative
+     if (initialBalance < 0) {
+         throw new NegativeAmountException("Initial balance cannot be negative");
+     }
+
+     // Check if initial balance is below minimum required balance
+     if ((accType.equals("Savings") && initialBalance < 1000) || (accType.equals("Current") && initialBalance < 5000)) {
+         throw new LowBalanceException("Initial balance is less than minimum required balance for " + accType + " account");
+     }
+
+     this.balance = initialBalance;
+ }
+
+ // Method to deposit amount
+ public void deposit(float amt) throws NegativeAmountException {
+     // Check if amount to deposit is negative
+     if (amt < 0) {
+         throw new NegativeAmountException("Amount to deposit cannot be negative");
+     }
+     balance += amt;
+ }
+
+ // Method to get current balance
+ public float getBalance() throws LowBalanceException {
+     // Check if current balance is below minimum required balance
+     if ((accType.equals("Savings") && balance < 1000) || (accType.equals("Current") && balance < 5000)) {
+         throw new LowBalanceException("Balance is below minimum required balance for " + accType + " account");
+     }
+     return balance;
+ }
+}
+
+

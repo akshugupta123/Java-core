@@ -1,0 +1,8 @@
+package com.learning.core.day2session1afternoon;
+
+// Custom exception class for low balance
+public class LowBalanceException extends Exception {
+    public LowBalanceException(String message) {
+        super(message);
+    }
+}

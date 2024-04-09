@@ -1,0 +1,93 @@
+package com.learning.core.day3session3afternoon;
+
+import java.util.*;
+
+class Employee2 {
+    private int id;
+    private String name;
+    private String department;
+    private String designation;
+
+    public Employee2(int id, String name, String department, String designation) {
+        this.id = id;
+        this.name = name;
+        this.department = department;
+        this.designation = designation;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getDesignation() {
+        return designation;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
+    }
+
+    @Override
+    public String toString() {
+        return id + " " + name + " " + department + " " + designation;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Employee2 employee = (Employee2) obj;
+        return id == employee.id;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // Create a Hashtable to store employee details
+        Hashtable<Integer, Employee2> employeeTable = new Hashtable<>();
+
+        // Predefined employee details
+        employeeTable.put(1001, new Employee2(1001, "Daniel", "Analyst", ""));
+        employeeTable.put(1002, new Employee2(1002, "Thomas", "Tester", ""));
+        employeeTable.put(1003, new Employee2(1003, "Robert", "Product Manager", "Development"));
+        employeeTable.put(1004, new Employee2(1004, "Grace", "Tech Support", "HR"));
+
+        // Add new employees if they don't exist
+        addEmployee(employeeTable, 1005, "Charles", "QA Lead", "Testing");
+
+        // Print employee details
+        for (Employee2 employee : employeeTable.values()) {
+            System.out.println(employee);
+        }
+    }
+
+    private static void addEmployee(Hashtable<Integer, Employee2> employeeTable, int id, String name, String department, String designation) {
+        Employee2 existingEmployee = employeeTable.get(id);
+        if (existingEmployee != null) {
+            // Update existing employee with new details
+            existingEmployee.setName(name);
+            existingEmployee.setDepartment(department);
+            existingEmployee.setDesignation(designation);
+        } else {
+            // Add new employee if ID doesn't exist
+            employeeTable.put(id, new Employee2(id, name, department, designation));
+        }
+    }
+}
